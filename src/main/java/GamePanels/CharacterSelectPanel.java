@@ -9,6 +9,7 @@ import ActionListeners.CharacterSelectPanelActionListeners.SelectRightButtonActi
 
 import java.awt.*;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import GameData.*;
@@ -46,9 +47,15 @@ public class CharacterSelectPanel extends ParentPanel {
     
     /**
      * Creates the CharacterSelectPanel object and adds the elements into the legendsMap
+     * @throws URISyntaxException
      */
     public CharacterSelectPanel() {
-        setCharacterHashMap();
+        try {
+            setCharacterHashMap();
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -170,7 +177,7 @@ public class CharacterSelectPanel extends ParentPanel {
         }
     }
 
-    public void setCharacterHashMap() {
+    public void setCharacterHashMap() throws URISyntaxException {
         legendType.add("Outer Gods");
         legendType.add("Meme Gods");
         legendType.add("Norse Gods");

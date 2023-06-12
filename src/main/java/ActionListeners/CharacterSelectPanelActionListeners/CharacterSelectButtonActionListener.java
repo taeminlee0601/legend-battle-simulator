@@ -10,6 +10,8 @@ import MainGameFrame.GameFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -82,9 +84,19 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 // Sets the main frame
                 selectPanel.setFrame(frame);
                 // Sets the backgroundFile of the character select panel
-                selectPanel.setBackgroundFile(new File("assets/CharacterSelection.jpg"));
+                try {
+                    selectPanel.setBackgroundFile(Paths.get(getClass().getResource("/assets/CharacterSelection.jpg").toURI()).toFile());
+                } catch (URISyntaxException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 // Sets the font file of the character select panel
-                selectPanel.setFontFile(new File("assets/BreatheFireIii-PKLOB.ttf"));
+                try {
+                    selectPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
+                } catch (URISyntaxException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 // Creates the elements inside the panel
                 selectPanel.createPanel();
 
@@ -123,9 +135,19 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 // Sets the main frame
                 selectPanel.setFrame(frame);
                 // Sets the backgroundFile of the character select panel
-                selectPanel.setBackgroundFile(new File("assets/CharacterSelection.jpg"));
+                try {
+                    selectPanel.setBackgroundFile(Paths.get(getClass().getResource("/assets/CharacterSelection.jpg").toURI()).toFile());
+                } catch (URISyntaxException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 // Sets the font file of the character select panel
-                selectPanel.setFontFile(new File("assets/BreatheFireIii-PKLOB.ttf"));
+                try {
+                    selectPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
+                } catch (URISyntaxException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 // Creates the elements inside the panel
                 selectPanel.createPanel();
 

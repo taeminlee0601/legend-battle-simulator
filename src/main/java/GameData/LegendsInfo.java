@@ -1,12 +1,14 @@
 package GameData;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class LegendsInfo {
     private ArrayList<Legends> characterList = new ArrayList<Legends>();
     
-    public LegendsInfo() {
+    public LegendsInfo() throws URISyntaxException {
         Stats yogStat = new Stats(900,100,50,150);
         Stats cthulhuStat = new Stats(1000,90,70,140);
         Stats azathothStat = new Stats(1500,110,40,170);
@@ -157,77 +159,77 @@ public class LegendsInfo {
         ArrayList<Move> hadesMoveset = Move.addMoveToMoveset(hadesMove1, hadesMove2, hadesMove3);
 
         Legends yog = new Legends("Yog-Sothoth","Cosmic entitiy who trasends space and time",yogMoveset,yogStat,"Outer");
-        yog.setImageFile(new File("assets/Characters/yog-sothoth.jpg"));
+        yog.setImageFile(Paths.get(getClass().getResource("/assets/Characters/yog-sothoth.jpg").toURI()).toFile());
         
         characterList.add(yog);
 
         Legends cthulhu = new Legends("Cthulhu","Colossal ancient god lying dormant in the sea waiting for someone to wake him",cthMoveset,cthulhuStat,"Outer");
-        cthulhu.setImageFile(new File("assets/Characters/cthulhu.jpg"));
+        cthulhu.setImageFile(Paths.get(getClass().getResource("/assets/Characters/cthulhu.jpg").toURI()).toFile());
         
         characterList.add(cthulhu);
 
         Legends azathoth = new Legends("Azathoth","Chaotic deity know as the blind god existing at the center of the cosmos",azaMoveset,azathothStat,"Outer");
-        azathoth.setImageFile(new File("assets/Characters/azathoth.jpg"));
+        azathoth.setImageFile(Paths.get(getClass().getResource("/assets/Characters/azathoth.jpg").toURI()).toFile());
 
         characterList.add(azathoth);
 
         Legends rick = new Legends("Rick Asley","Never gonna give you up never gonna let you down never gonna run around and desert you",rickMoveset,rickStat,"Meme");
-        rick.setImageFile(new File("assets/Characters/rick.jpg"));
+        rick.setImageFile(Paths.get(getClass().getResource("/assets/Characters/rick.jpg").toURI()).toFile());
 
         characterList.add(rick);
 
         Legends cat = new Legends("Derp Cat","nyanynaynaynaynaynayna",derpMoveset,derpStat,"Meme");
-        cat.setImageFile(new File("assets/Characters/derpcat.jpg"));
+        cat.setImageFile(Paths.get(getClass().getResource("/assets/Characters/derpcat.jpg").toURI()).toFile());
 
         characterList.add(cat);
 
         Legends godzilla = new Legends("Godzilla","King of the monster",godzillaMoveset,godzillaStat,"Meme");
-        godzilla.setImageFile(new File("assets/Characters/godzilla.jpg"));
+        godzilla.setImageFile(Paths.get(getClass().getResource("/assets/Characters/godzilla.jpg").toURI()).toFile());
 
         characterList.add(godzilla);
 
         Legends odin = new Legends("Odin","God of wisdom war and death the Allfather",odinMoveset,odinStat,"Norse");
-        odin.setImageFile(new File("assets/Characters/odin.jpg"));
+        odin.setImageFile(Paths.get(getClass().getResource("/assets/Characters/odin.jpg").toURI()).toFile());
         
         characterList.add(odin);
 
         Legends loki = new Legends("Loki","God of mischief who knows what he might do?",lokiMoveset,lokiStat,"Norse");
-        loki.setImageFile(new File("assets/Characters/loki.jpg"));
+        loki.setImageFile(Paths.get(getClass().getResource("/assets/Characters/loki.jpg").toURI()).toFile());
 
         characterList.add(loki);
 
         Legends thor = new Legends("Thor","God of thunder and also a powerful warrior",thorMoveset,thorStat,"Norse");
-        thor.setImageFile(new File("assets/Characters/thor.jpg"));
+        thor.setImageFile(Paths.get(getClass().getResource("/assets/Characters/thor.jpg").toURI()).toFile());
 
         characterList.add(thor);
 
         Legends anubis = new Legends("Anubis","God of the after life is your heart lighter then a feather?",anubisMoveset,anubisStat,"Egyptian");
-        anubis.setImageFile(new File("assets/Characters/anubis.jpg"));
+        anubis.setImageFile(Paths.get(getClass().getResource("/assets/Characters/anubis.jpg").toURI()).toFile());
 
         characterList.add(anubis);
 
         Legends ra = new Legends("Ra","God of the sun and creator of all life supreme leader of the Eygiptian gods",raMoveset,raStat,"Egyptian");
-        ra.setImageFile(new File("assets/Characters/ra.jpg"));
+        ra.setImageFile(Paths.get(getClass().getResource("/assets/Characters/ra.jpg").toURI()).toFile());
 
         characterList.add(ra);
 
         Legends horus = new Legends("Horus","God of the sky ruler of the pharaohs",horusMoveset,horusStat,"Egyptian");
-        horus.setImageFile(new File("assets/Characters/horus.jpg"));
+        horus.setImageFile(Paths.get(getClass().getResource("/assets/Characters/horus.jpg").toURI()).toFile());
 
         characterList.add(horus);
 
         Legends zeus = new Legends("Zeus","King of gods and ruler of Olympus",zeusMoveset,zeusStat,"Olympus");
-        zeus.setImageFile(new File("assets/Characters/zeus.jpg"));
+        zeus.setImageFile(Paths.get(getClass().getResource("/assets/Characters/zeus.jpg").toURI()).toFile());
 
         characterList.add(zeus);
 
         Legends poseidon = new Legends("Poseidon","God of the sea owner of atlantis",poseidonMoveset,posidionStat,"Olympus");
-        poseidon.setImageFile(new File("assets/Characters/poseidon.jpg"));
+        poseidon.setImageFile(Paths.get(getClass().getResource("/assets/Characters/poseidon.jpg").toURI()).toFile());
 
         characterList.add(poseidon);
 
         Legends hades = new Legends("Hades","God of the underworld owner of the domain of the dead",hadesMoveset,hadesStat,"Olympus");
-        hades.setImageFile(new File("assets/Characters/hades.jpg"));
+        hades.setImageFile(Paths.get(getClass().getResource("/assets/Characters/hades.jpg").toURI()).toFile());
 
         characterList.add(hades);
     }
