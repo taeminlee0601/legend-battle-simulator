@@ -32,6 +32,8 @@ public class CharacterSelectPanel extends ParentPanel {
     private JLabel typeTitle = new JLabel();
     // Create the label array that will have the name of characters displayed
     private JLabel[] nameArray = new JLabel[3];
+    // Create the label array that will display the descriptions
+    private JLabel[] descriptionArray = new JLabel[3];
     // Create the Legends array that contains the legends that are currently displayed
     private Legends[] currentDisplayed = new Legends[3];
     // Create a HashMap that has a string key (type of the characters) and the ArrayList<Legends> elements (legends of the type)
@@ -53,7 +55,6 @@ public class CharacterSelectPanel extends ParentPanel {
         try {
             setCharacterHashMap();
         } catch (URISyntaxException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -95,9 +96,7 @@ public class CharacterSelectPanel extends ParentPanel {
         setVisible(true);
         setSize(900,600);
         setLayout(null);
-
-        // Resizes the image of the background file
-        //setBackground();
+        
         // Creates the font 
         createFont();
 
@@ -122,6 +121,15 @@ public class CharacterSelectPanel extends ParentPanel {
             nameArray[a].setText(currentDisplayed[a].getName());
             nameArray[a].setHorizontalAlignment(SwingConstants.CENTER);
             nameArray[a].setBounds(75+(a*253), 375, 228, 100);
+
+            // Creates a new label in the descriptionArray at index a
+            // Initializse the seetings of the label
+            descriptionArray[a] = new JLabel();
+            descriptionArray[a].setFont(customFont.deriveFont(20f));
+            descriptionArray[a].setText(setDescription(currentDisplayed[a].getDescription()));
+            descriptionArray[a].setHorizontalAlignment(SwingConstants.CENTER);
+            descriptionArray[a].setForeground(Color.WHITE);
+            descriptionArray[a].setBounds(75+(a*253), 425, 228, 125);
         }
 
         // Initializes the settings of the label
@@ -153,9 +161,9 @@ public class CharacterSelectPanel extends ParentPanel {
 
         // Add an action listener to the left and right button
         leftButton.addActionListener(new SelectLeftButtonActionListener(buttonArray, legendType, legendsMap, typeTitle, 
-            nameArray, currentDisplayed));
+            nameArray, currentDisplayed, descriptionArray));
         rightButton.addActionListener(new SelectRightButtonActionListener(buttonArray, legendType, legendsMap, typeTitle,
-            nameArray, currentDisplayed));
+            nameArray, currentDisplayed, descriptionArray));
 
         // Add an action listener to each of the buttons displaying the character's image
         buttonArray[0].addActionListener(new CharacterSelectButtonActionListener(currentDisplayed, 0, player1, player2, frame, 
@@ -174,6 +182,7 @@ public class CharacterSelectPanel extends ParentPanel {
         for (int a = 0; a < buttonArray.length; a++) {
             add(buttonArray[a]);
             add(nameArray[a]);
+            add(descriptionArray[a]);
         }
     }
 
@@ -210,11 +219,14 @@ public class CharacterSelectPanel extends ParentPanel {
         }
     }
 
+    public String setDescription(String description) {
+        return "<html>" + description + "</html>";
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         g.drawImage(background, 0, 0, this);
     }
-
 }

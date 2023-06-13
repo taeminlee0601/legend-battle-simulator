@@ -14,6 +14,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import GamePanels.GamePanel;
 
 /*
  * This class will set the characters that the player selects into an 
@@ -54,7 +55,6 @@ public class CharacterSelectButtonActionListener implements ActionListener {
         this.hasPopupOpened = hasPopupOpened;
         this.currentPanel = currentPanel;
         this.legendsMap = legendsMap;
-        this.legendType = legendType;
     }
 
     @Override
@@ -148,6 +148,19 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 frame.add(selectPanel);
 
                 JOptionPane.showMessageDialog(frame, "Player 2: Choose 3 characters by clicking on the Character's image");
+            } else {
+                GamePanel nextPanel = new GamePanel(player1, player2);
+                nextPanel.setFrame(frame);
+                
+                try {
+                    nextPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
+                } catch (URISyntaxException f) {
+                    f.printStackTrace();
+                }
+
+                nextPanel.createPanel();
+                currentPanel.setVisible(false);
+                frame.add(nextPanel);
             }
 
             return;

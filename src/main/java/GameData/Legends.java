@@ -39,9 +39,17 @@ public class Legends
         return name;
     }
 
-    public String description()
+    public String getDescription()
     {
         return description;
+    }
+
+        public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public File getImageFile() {
+        return imageFile;
     }
 
     public static int calcDamage (int whichMove, Legends legend, Legends otherLegend)
@@ -131,14 +139,6 @@ public class Legends
         {
             return false;
         }
-    }
-
-    public void setImageFile(File imageFile) {
-        this.imageFile = imageFile;
-    }
-
-    public File getImageFile() {
-        return imageFile;
     }
 
     public static void swapLegend(Player player,Legends legend)
