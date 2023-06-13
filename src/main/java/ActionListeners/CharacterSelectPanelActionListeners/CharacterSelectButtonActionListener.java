@@ -84,19 +84,14 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 // Sets the main frame
                 selectPanel.setFrame(frame);
                 // Sets the backgroundFile of the character select panel
-                try {
-                    selectPanel.setBackgroundFile(Paths.get(getClass().getResource("/assets/CharacterSelection.jpg").toURI()).toFile());
-                } catch (URISyntaxException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
                 // Sets the font file of the character select panel
                 try {
+                    selectPanel.setBackgroundImage(new ImageIcon(getClass().getResource("/assets/CharacterSelection.jpg")));
                     selectPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
                 } catch (URISyntaxException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
+                
                 // Creates the elements inside the panel
                 selectPanel.createPanel();
 
@@ -135,19 +130,14 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 // Sets the main frame
                 selectPanel.setFrame(frame);
                 // Sets the backgroundFile of the character select panel
-                try {
-                    selectPanel.setBackgroundFile(Paths.get(getClass().getResource("/assets/CharacterSelection.jpg").toURI()).toFile());
-                } catch (URISyntaxException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
                 // Sets the font file of the character select panel
                 try {
+                    selectPanel.setBackgroundImage(new ImageIcon(getClass().getResource("/assets/CharacterSelection.jpg")));
                     selectPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
                 } catch (URISyntaxException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
+                
                 // Creates the elements inside the panel
                 selectPanel.createPanel();
 
