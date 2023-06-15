@@ -15,7 +15,6 @@ import java.util.HashMap;
 import GameData.*;
 import MainGameFrame.FileFunctions;
 
-
 /*
  * This class creates the character select panel
  * Inhertes ParentPanel
@@ -46,10 +45,17 @@ public class CharacterSelectPanel extends ParentPanel {
     private ArrayList<Legends> player2 = new ArrayList<Legends>();
     // Create a boolean array that contains 1 element (needed as "var = array" stores the same memory)
     private boolean[] hasPopupOpened = {false};
+    // Create a JLabel to show the characters selected by player1
+    private JLabel player1Label = new JLabel();
+    // Create a JLabel to show the characters selected by player2
+    private JLabel player2Label = new JLabel();
+    // Create an Image array to for the characters that are chosen by player1
+    private ArrayList<Image> player1Image = new ArrayList<Image>();
+    // Create an Image array to for the characters that are chosen by player2
+    private ArrayList<Image> player2Image = new ArrayList<Image>();
     
     /**
      * Creates the CharacterSelectPanel object and adds the elements into the legendsMap
-     * @throws URISyntaxException
      */
     public CharacterSelectPanel() {
         try {
@@ -67,12 +73,13 @@ public class CharacterSelectPanel extends ParentPanel {
      * @param legendsType - (ArrayList<String>) contains the type of legends
      */
     public CharacterSelectPanel(ArrayList<Legends> player1, boolean[] hasPopupOpened, HashMap<String,ArrayList<Legends>> legendsMap,
-            ArrayList<String> legendsType) {
+            ArrayList<String> legendsType, ArrayList<Image> player1Image) {
         // Sets the instance variables from the given parameters
         this.player1 = player1;
         this.hasPopupOpened = hasPopupOpened;
         this.legendsMap = legendsMap;
         this.legendType = legendsType;
+        this.player1Image = player1Image;
 
         // Sets "Outer God" as the first element in list
         setToStartTypeList();
@@ -159,6 +166,22 @@ public class CharacterSelectPanel extends ParentPanel {
         rightButton.setBounds(835, 0, 50, 600);
         rightButton.setForeground(Color.WHITE);
 
+        //Initializes the settings of the player 1 label
+        player1Label.setFont(customFont.deriveFont(10f));
+        player1Label.setText("Player 1");
+        player1Label.setBounds(75, 15, 165, 50);
+        player1Label.setHorizontalAlignment(SwingConstants.CENTER);
+        player1Label.setVerticalAlignment(SwingConstants.CENTER);
+        player1Label.setForeground(Color.WHITE);
+
+        //Initializes the settings of the player 1 label
+        player2Label.setFont(customFont.deriveFont(10f));
+        player2Label.setText("Player 2");
+        player2Label.setBounds(645, 15, 165, 50);
+        player2Label.setHorizontalAlignment(SwingConstants.CENTER);
+        player2Label.setVerticalAlignment(SwingConstants.CENTER);
+        player2Label.setForeground(Color.WHITE);
+
         // Add an action listener to the left and right button
         leftButton.addActionListener(new SelectLeftButtonActionListener(buttonArray, legendType, legendsMap, typeTitle, 
             nameArray, currentDisplayed, descriptionArray));
@@ -167,16 +190,18 @@ public class CharacterSelectPanel extends ParentPanel {
 
         // Add an action listener to each of the buttons displaying the character's image
         buttonArray[0].addActionListener(new CharacterSelectButtonActionListener(currentDisplayed, 0, player1, player2, frame, 
-            hasPopupOpened, this, legendsMap, legendType));
+            hasPopupOpened, this, legendsMap, legendType, player1Image, player2Image));
         buttonArray[1].addActionListener(new CharacterSelectButtonActionListener(currentDisplayed, 1, player1, player2, frame, 
-            hasPopupOpened, this, legendsMap, legendType));
+            hasPopupOpened, this, legendsMap, legendType, player1Image, player2Image));
         buttonArray[2].addActionListener(new CharacterSelectButtonActionListener(currentDisplayed, 2, player1, player2, frame, 
-            hasPopupOpened, this, legendsMap, legendType));
+            hasPopupOpened, this, legendsMap, legendType, player1Image, player2Image));
 
         // Add the left button, right button, and the type label to the panel
         add(leftButton);
         add(rightButton);
         add(typeTitle);
+        add(player1Label);
+        add(player2Label);
 
         // Add the buttons displaying the character's images to the panel
         for (int a = 0; a < buttonArray.length; a++) {
@@ -228,5 +253,18 @@ public class CharacterSelectPanel extends ParentPanel {
         super.paintComponent(g);
 
         g.drawImage(background, 0, 0, this);
+
+        for (int a = 0; a < 3; a++) {
+            g.drawRect(75+(a*55), 50, 50, 50);
+            g.drawRect(647+(a*55),50,50,50);
+        }
+
+        for (int a = 0; a < player1Image.size(); a++) {
+            g.drawImage(player1Image.get(a), 75+(a*55), 50, this);
+        }
+
+        for (int a = 0; a < player2Image.size(); a++) {
+            g.drawImage(player2Image.get(a), 645+(a*55), 50, this);
+        }
     }
 }

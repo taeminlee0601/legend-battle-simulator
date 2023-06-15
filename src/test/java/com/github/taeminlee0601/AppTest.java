@@ -33,4 +33,8 @@ public class AppTest
         List<Legends> legends = new ArrayList<>(new LegendsInfo().getLegendsList());
         assertTrue("Something", legends.iterator()!= null);
     }
+
+    public static void changeValue(int[] turn) {
+        turn[0] = 2;
+    }
 }

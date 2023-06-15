@@ -3,7 +3,7 @@ package ActionListeners.GamePanelActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AttackButtonAcitonListeners implements ActionListener{
+public class AttackButtonActionListeners implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {

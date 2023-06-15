@@ -13,6 +13,7 @@ public class Legends
     private Stats statistic;
     private String type;
     private File imageFile;
+    private File faceImageFile;
     
     
     public Legends(String name, String description, ArrayList<Move> movesets, Stats statistic,String type)
@@ -44,12 +45,20 @@ public class Legends
         return description;
     }
 
-        public void setImageFile(File imageFile) {
+    public void setImageFile(File imageFile) {
         this.imageFile = imageFile;
     }
 
     public File getImageFile() {
         return imageFile;
+    }
+
+    public void setFaceImageFile(File faceImageFile) {
+        this.faceImageFile = faceImageFile;
+    }
+
+    public File getFaceImageFile() {
+        return faceImageFile;
     }
 
     public static int calcDamage (int whichMove, Legends legend, Legends otherLegend)

@@ -2,14 +2,14 @@ package ActionListeners.CharacterSelectPanelActionListeners;
 
 // Import required packages
 import javax.swing.*;
-
+import java.awt.*;
 import GameData.Legends;
 import GamePanels.CharacterSelectPanel;
+import MainGameFrame.FileFunctions;
 import MainGameFrame.GameFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -29,7 +29,9 @@ public class CharacterSelectButtonActionListener implements ActionListener {
     private int response = 0;
     private CharacterSelectPanel currentPanel;
     private HashMap<String, ArrayList<Legends>> legendsMap;
-    private ArrayList<String> legendType;
+    private ArrayList<String> legendsType;
+    private ArrayList<Image> player1Image;
+    private ArrayList<Image> player2Image;
 
     /**
      * Sets the instance variables of the CharacterSelectButtonActionListener class
@@ -46,7 +48,8 @@ public class CharacterSelectButtonActionListener implements ActionListener {
      */
     public CharacterSelectButtonActionListener(Legends[] currentDisplayed, int index, ArrayList<Legends> player1, 
             ArrayList<Legends> player2, GameFrame frame, boolean[] hasPopupOpened, CharacterSelectPanel currentPanel,
-            HashMap<String,ArrayList<Legends>> legendsMap, ArrayList<String> legendType) {
+            HashMap<String,ArrayList<Legends>> legendsMap, ArrayList<String> legendType, ArrayList<Image> player1Image,
+            ArrayList<Image> player2Image) {
         this.currentDisplayed = currentDisplayed;
         this.index = index;
         this.player1 = player1;
@@ -55,6 +58,9 @@ public class CharacterSelectButtonActionListener implements ActionListener {
         this.hasPopupOpened = hasPopupOpened;
         this.currentPanel = currentPanel;
         this.legendsMap = legendsMap;
+        this.player1Image = player1Image;
+        this.player2Image = player2Image;
+        this.legendsType = legendType;
     }
 
     @Override
@@ -62,6 +68,13 @@ public class CharacterSelectButtonActionListener implements ActionListener {
         if (player1.size() < 3) {
             if (!player1.contains(currentDisplayed[index])) {
                 player1.add(currentDisplayed[index]);
+                
+                Image faceImage = FileFunctions.resizeImage(currentDisplayed[index].getFaceImageFile(), 50, 50);
+
+                player1Image.add(faceImage);
+
+                currentPanel.repaint();
+
             } else {
                 JOptionPane.showMessageDialog(frame, "You cannot select the same legend twice!");
             }
@@ -112,6 +125,12 @@ public class CharacterSelectButtonActionListener implements ActionListener {
         if (player2.size() < 3) {
             if (!player1.contains(currentDisplayed[index]) && !player2.contains(currentDisplayed[index])) {
                 player2.add(currentDisplayed[index]);
+
+                Image faceImage = FileFunctions.resizeImage(currentDisplayed[index].getFaceImageFile(), 50, 50);
+
+                player2Image.add(faceImage);
+
+                currentPanel.repaint();
             } else {
                 JOptionPane.showMessageDialog(frame, "You cannot select the same legend twice!");
             }
@@ -124,7 +143,7 @@ public class CharacterSelectButtonActionListener implements ActionListener {
             hasPopupOpened[0] = true;
 
             if (response == JOptionPane.NO_OPTION) {
-                CharacterSelectPanel selectPanel = new CharacterSelectPanel(player1, hasPopupOpened, legendsMap, legendType);
+                CharacterSelectPanel selectPanel = new CharacterSelectPanel(player1, hasPopupOpened, legendsMap, legendsType, player1Image);
 
                 // Initializes the settings of the next panel
                 // Sets the main frame
