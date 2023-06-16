@@ -183,7 +183,13 @@ public class Legends
                 System.out.println("Invalid legend name. Please try again.");
             }
         }
+    }
 
-        
+    public boolean isAlive() {
+        if (statistic.getHP() > 0) {
+            return true;
+        }
+
+        return false;
     }
 }

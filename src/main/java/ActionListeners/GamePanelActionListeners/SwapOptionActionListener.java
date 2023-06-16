@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 
 import GameData.Legends;
+import GameData.QueuedMove;
 import GamePanels.GamePanel;
 import MainGameFrame.FileFunctions;
 
@@ -17,6 +18,7 @@ public class SwapOptionActionListener implements ActionListener {
     private ArrayList<Legends> player;
     private Image playerImage;
     private int index;
+    private int playerNum;
 
     public SwapOptionActionListener(GamePanel currentPanel, int index) {
         this.currentPanel = currentPanel;
@@ -27,29 +29,47 @@ public class SwapOptionActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (turn[0] > 0) {
-            this.player = currentPanel.getPlayer1();
+            player = currentPanel.getPlayer1();
+            playerNum = 1;
         } else {
-            this.player = currentPanel.getPlayer2();
+            player = currentPanel.getPlayer2();
+            playerNum = 2;
         }
 
-        currentPanel.setPlayerImage(FileFunctions.resizeImage(player.get(index).getImageFile(), 200, 250));
+        Legends swapping = player.get(index);
+        Legends current = player.get(0);
+        
+        if (!swapping.isAlive()) {
+            currentPanel.getTextLabel().setText("Cannot swap to that legend!");
+            changeButtons();
+            return;
+        }
 
-        Legends swapping = player.remove(index);
-        Legends current = player.remove(0);
+        player.remove(index);
+        player.remove(0); 
         
         player.add(0, swapping);
         player.add(current);
 
+        currentPanel.getMoveQueue().add(new QueuedMove(3));
+
+        currentPanel.setCurrentCharacter(swapping, playerNum);
+        
+        changeButtons();
+
+        currentPanel.changeTurn();
+
+        if (currentPanel.getTurn()[0] == 1) {
+            currentPanel.initiateMoves();
+        }
+    }
+    
+    public void changeButtons() {
         currentPanel.getAttackButton().setVisible(true);
         currentPanel.getSwapButton().setVisible(true);
         currentPanel.getBuffButton().setVisible(true);
 
-        currentPanel.getSwapCharacter1().setVisible(false);;
-        currentPanel.getSwapCharacter2().setVisible(false);;
-        
-        currentPanel.changeTurn();
-
-        currentPanel.repaint();
+        currentPanel.getSwapCharacter1().setVisible(false);
+        currentPanel.getSwapCharacter2().setVisible(false);
     }
-    
 }
