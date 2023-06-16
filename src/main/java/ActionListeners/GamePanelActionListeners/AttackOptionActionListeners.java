@@ -3,8 +3,6 @@ package ActionListeners.GamePanelActionListeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.management.Query;
-import javax.swing.JButton;
 
 import GameData.QueuedMove;
 import GamePanels.GamePanel;
@@ -28,6 +26,8 @@ public class AttackOptionActionListeners implements ActionListener {
 
         if (currentPanel.getTurn()[0] == 1) {
             currentPanel.initiateMoves();
+        } else {
+            currentPanel.getPlayerChoosingLabel().setText("Player 2 is Choosing...");
         }
     }
     

@@ -1,6 +1,5 @@
 package GameData;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;

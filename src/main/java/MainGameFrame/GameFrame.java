@@ -1,12 +1,9 @@
 package MainGameFrame;
 
-import javax.imageio.ImageIO;
 // import the needed packages
 // javax.swing and java.awt=> used for the GUI
 import javax.swing.*;
 import GamePanels.StartPanel;
-import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 

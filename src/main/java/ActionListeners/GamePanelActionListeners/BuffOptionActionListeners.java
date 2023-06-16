@@ -36,6 +36,8 @@ public class BuffOptionActionListeners implements ActionListener {
 
         if (currentPanel.getTurn()[0] > 0) {
             currentPanel.initiateMoves();
+        } else {
+            currentPanel.getPlayerChoosingLabel().setText("Player 2 is Choosing...");
         }
     }
 

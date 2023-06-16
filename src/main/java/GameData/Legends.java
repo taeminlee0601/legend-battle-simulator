@@ -3,7 +3,6 @@ package GameData;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Legends
 {
@@ -147,41 +146,6 @@ public class Legends
         else
         {
             return false;
-        }
-    }
-
-    public static void swapLegend(Player player,Legends legend)
-    {   
-        boolean validInput=true;
-        Scanner input = new Scanner(System.in);
-        while(validInput)
-        {
-            Player.showLegendListPlayer(player);
-            System.out.println();
-            System.out.println("Player's current legend is " + legend.getName());
-            System.out.println();
-            System.out.print("Who do you want to switch to? ");
-            String who = input.next();
-            System.out.println();
-            Legends desiredLegend = null;
-            
-            for (int i = 0; i < player.getCharacter().length; i++) {
-                if (who.equals(player.getCharacter(i).getName())) {
-                    validInput=false;
-                    desiredLegend = player.getCharacter(i);
-                    int legendIndex = Player.getIndiceInCharacter(player.getCharacter(), legend);
-                    int desiredLegendIndex = Player.getIndiceInCharacter(player.getCharacter(), desiredLegend);
-                    player.setCharacter(legendIndex, desiredLegend);
-                    player.setCharacter(desiredLegendIndex, legend);
-                    Player.showLegendListPlayer(player);
-                    System.out.println();
-                    break;
-                }
-            }
-            if(validInput)
-            {
-                System.out.println("Invalid legend name. Please try again.");
-            }
         }
     }
 

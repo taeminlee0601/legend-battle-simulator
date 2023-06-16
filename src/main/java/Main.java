@@ -10,6 +10,7 @@ import MainGameFrame.GameFrame;
 public class Main {
     public static void main(String[]args) {
         // Creates a game frame object
+        @SuppressWarnings("unused")
         GameFrame window = new GameFrame();
     }
 }

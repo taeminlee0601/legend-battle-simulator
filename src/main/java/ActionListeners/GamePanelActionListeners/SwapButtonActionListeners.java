@@ -1,6 +1,5 @@
 package ActionListeners.GamePanelActionListeners;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ public class SwapButtonActionListeners implements ActionListener {
     private JButton swapButton;
     private JButton buffButton;
     private int[] turn;
-    private int[] count = {0};
 
     public SwapButtonActionListeners(GamePanel currentPanel) {
         this.currentPanel = currentPanel;

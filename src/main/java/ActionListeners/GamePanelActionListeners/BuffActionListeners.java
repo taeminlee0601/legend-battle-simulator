@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import GamePanels.GamePanel;
 
 public class BuffActionListeners implements ActionListener {
-    private GamePanel currentPanel;
     private JButton buffHP;
     private JButton buffDef;
     private JButton buffAtt;
@@ -17,8 +16,6 @@ public class BuffActionListeners implements ActionListener {
 
 
     public BuffActionListeners(GamePanel currentPanel) {
-        this.currentPanel= currentPanel;
-
         this.buffHP = currentPanel.getBuffHPButton();
         this.buffDef = currentPanel.getBuffDefButton();
         this.buffAtt = currentPanel.getBuffAttButton();

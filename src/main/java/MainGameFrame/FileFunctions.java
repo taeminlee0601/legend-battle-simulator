@@ -5,7 +5,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
-import java.awt.peer.FileDialogPeer;
 
 public class FileFunctions {
 

@@ -1,6 +1,9 @@
 package GamePanels;
 
 import java.awt.*;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 import javax.swing.*;
 
 import ActionListeners.GamePanelActionListeners.AttackButtonActionListeners;
@@ -46,6 +49,7 @@ public class GamePanel extends ParentPanel {
     private int[] countNumBuffs = new int[2];
 
     private JLabel textArea = new JLabel();
+    private JLabel playerChoosing = new JLabel();
 
     private Image[] playerImage = new Image[3];
     private ImageIcon tempIcon;
@@ -130,7 +134,7 @@ public class GamePanel extends ParentPanel {
         buffHP.setVisible(false);
 
         // Initalize buff def button
-        buffDef.setText("Buff Defence");
+        buffDef.setText("Buff Defense");
         buffDef.setBounds(700, 400, 200, 82);
         buffDef.setVisible(false);
 
@@ -154,9 +158,14 @@ public class GamePanel extends ParentPanel {
         move3Button.setVisible(false);
 
         // Initialize the text area
-        textArea.setBounds(0, 400, 500, 165);
+        textArea.setBounds(0, 400, 500, 115);
         textArea.setText("Player 1 chooses first then Player 2!");
         textArea.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Initialize the player choosing text area
+        playerChoosing.setBounds(0, 515, 500, 50);
+        playerChoosing.setText("Player 1 is Choosing...");
+        playerChoosing.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Initialize the attack button
         attackButton.setBackground(Color.GREEN);
@@ -202,6 +211,7 @@ public class GamePanel extends ParentPanel {
         add(move1Button);
         add(move2Button);
         add(move3Button);
+        add(playerChoosing);
 
         for (int a = 0; a < 3; a++) {
             add(player1HealthMap.get(player1.get(a)));
@@ -213,6 +223,8 @@ public class GamePanel extends ParentPanel {
     }
 
     public void initiateMoves() {
+        boolean hasWinner = false;
+        int winner = 0;
         String description1 = "";
         String description2 = "";
         String description3 = "";
@@ -235,14 +247,35 @@ public class GamePanel extends ParentPanel {
 
         if (!hasAlive(1)) {
             description3 = "Player 2 Wins!";
+            winner = 2;
+            hasWinner = true;
         }
 
         if (!hasAlive(2)) {
             description3 = "Player 1 Wins!";
+            winner = 1;
+            hasWinner = true;
         }
 
         textArea.setText("<html>" + description1 + "<br>" + description2 + "<br>" + description3 + "</html>");
 
+        if (hasWinner) {
+            GameOverPanel nextPanel = new GameOverPanel(winner);
+            
+            nextPanel.setFrame(frame);
+            
+            try {
+                nextPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
+            } catch (URISyntaxException f) {
+                f.printStackTrace();
+            }
+
+            nextPanel.createPanel();
+            this.setVisible(false);
+            frame.add(nextPanel);
+        }        
+
+        playerChoosing.setText("Player 1 is Choosing...");
         moveQueue.clear();
 
         repaint();
@@ -499,6 +532,10 @@ public class GamePanel extends ParentPanel {
 
     public int[] getCountNumBuffs() {
         return countNumBuffs;
+    }
+
+    public JLabel getPlayerChoosingLabel() {
+        return playerChoosing;
     }
 
     @Override

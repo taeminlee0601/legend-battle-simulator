@@ -3,7 +3,6 @@ package ActionListeners.StartPanelActionListeners;
 // Import required packages
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
@@ -11,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import GamePanels.CharacterSelectPanel;
+import GamePanels.GameOverPanel;
+import GamePanels.ParentPanel;
 import GamePanels.StartPanel;
 import MainGameFrame.GameFrame;
 
@@ -20,7 +21,7 @@ import MainGameFrame.GameFrame;
  */
 public class PlayButtonActionListener implements ActionListener {
     // Create instance variables
-    private StartPanel startPanel;
+    private ParentPanel panel;
     // Create the next panel
     private CharacterSelectPanel selectPanel = new CharacterSelectPanel();
     private GameFrame frame;
@@ -30,9 +31,18 @@ public class PlayButtonActionListener implements ActionListener {
      * @param startPanel - Type: StartPanel (StartPanel of the game)
      * @param frame - Type: GameFrame (Main frame of the game)
      */
-    public PlayButtonActionListener(StartPanel startPanel, GameFrame frame) {
-        this.startPanel = startPanel;
+    public PlayButtonActionListener(StartPanel panel, GameFrame frame) {
+        this.panel = panel;
         this.frame = frame;
+    }
+
+    public PlayButtonActionListener(GameOverPanel panel, GameFrame frame) {
+        this.panel = panel;
+        this.frame= frame;
+
+        if (frame == null) {
+            System.out.println("WHY IS THIS FUCKING NULL");
+        }
     }
 
     /**
@@ -57,7 +67,7 @@ public class PlayButtonActionListener implements ActionListener {
         selectPanel.createPanel();
 
         // Sets the start panel to not be visible
-        startPanel.setVisible(false);
+        panel.setVisible(false);
 
         // Adds the character select panel to the frame
         frame.add(selectPanel);

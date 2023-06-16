@@ -1,22 +1,17 @@
 package ActionListeners.GamePanelActionListeners;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-
 import GameData.Legends;
 import GameData.QueuedMove;
 import GamePanels.GamePanel;
-import MainGameFrame.FileFunctions;
 
 public class SwapOptionActionListener implements ActionListener {
     private GamePanel currentPanel;
     private int[] turn;
     private ArrayList<Legends> player;
-    private Image playerImage;
     private int index;
     private int playerNum;
 
@@ -61,6 +56,8 @@ public class SwapOptionActionListener implements ActionListener {
 
         if (currentPanel.getTurn()[0] == 1) {
             currentPanel.initiateMoves();
+        } else {
+            currentPanel.getPlayerChoosingLabel().setText("Player 2 is Choosing...");
         }
     }
     
