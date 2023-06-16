@@ -56,13 +56,14 @@ public class GamePanel extends ParentPanel {
     private HashMap<Legends, JProgressBar> player1HealthMap = new HashMap<Legends, JProgressBar>();
     private HashMap<Legends, JProgressBar> player2HealthMap = new HashMap<Legends, JProgressBar>();
 
-    private int[] turn = {1};
-    
+    private int[] turn = { 1 };
+
     public GamePanel(ArrayList<Legends> player1, ArrayList<Legends> player2) {
         // Create new objects (don't change the values of the original character)
         for (int a = 0; a < player1.size(); a++) {
             Legends temp = player1.get(a);
-            this.player1.add(new Legends(temp.getName(), temp.getDescription(), temp.getMoveset(), temp.getStats(), temp.getType()));
+            this.player1.add(new Legends(temp.getName(), temp.getDescription(), temp.getMoveset(), temp.getStats(),
+                    temp.getType()));
             this.player1.get(a).setImageFile(temp.getImageFile());
             this.player1.get(a).setFaceImageFile(temp.getFaceImageFile());
 
@@ -77,7 +78,8 @@ public class GamePanel extends ParentPanel {
         // Create new objects (don't change the values of the original character)
         for (int a = 0; a < player2.size(); a++) {
             Legends temp = player2.get(a);
-            this.player2.add(new Legends(temp.getName(), temp.getDescription(), temp.getMoveset(), temp.getStats(), temp.getType()));
+            this.player2.add(new Legends(temp.getName(), temp.getDescription(), temp.getMoveset(), temp.getStats(),
+                    temp.getType()));
             this.player2.get(a).setImageFile(temp.getImageFile());
             this.player2.get(a).setFaceImageFile(temp.getFaceImageFile());
 
@@ -93,16 +95,16 @@ public class GamePanel extends ParentPanel {
     public void createPanel() {
         // Initializes the panel setting
         setVisible(true);
-        setSize(900,600);
+        setSize(900, 600);
         setLayout(null);
 
-        // Creates the font 
+        // Creates the font
         createFont();
 
         currentPlayer1 = player1.get(0);
         currentPlayer2 = player2.get(0);
 
-        // Create the place where the characters will be 
+        // Create the place where the characters will be
         tempIcon = new ImageIcon(getClass().getResource("/assets/BattleBackground.jpg"));
         battleBackground = tempIcon.getImage().getScaledInstance(900, 400, Image.SCALE_DEFAULT);
 
@@ -145,30 +147,30 @@ public class GamePanel extends ParentPanel {
         move1Button.setBounds(500, 400, 400, 55);
         move1Button.setVisible(false);
 
-        move2Button.setBounds(500,455,400, 55);
+        move2Button.setBounds(500, 455, 400, 55);
         move2Button.setVisible(false);
 
         move3Button.setBounds(500, 510, 400, 55);
         move3Button.setVisible(false);
 
         // Initialize the text area
-        textArea.setBounds(0,400,500,165);
-        textArea.setText("Test");
+        textArea.setBounds(0, 400, 500, 165);
+        textArea.setText("Player 1 chooses first then Player 2!");
         textArea.setHorizontalAlignment(SwingConstants.CENTER);
-        
+
         // Initialize the attack button
         attackButton.setBackground(Color.GREEN);
-        attackButton.setBounds(500,400,400,55);
+        attackButton.setBounds(500, 400, 400, 55);
         attackButton.setText("Attack Opponent");
 
         // Initialize the buff button
         buffButton.setBackground(Color.RED);
-        buffButton.setBounds(500,455,400,55);
+        buffButton.setBounds(500, 455, 400, 55);
         buffButton.setText("Buff Yourself");
 
         // Initialize the swap button
         swapButton.setBackground(Color.MAGENTA);
-        swapButton.setBounds(500,510,400,55);
+        swapButton.setBounds(500, 510, 400, 55);
         swapButton.setText("Swap Legends");
 
         // Add action listeners to the swap buttons
@@ -211,31 +213,57 @@ public class GamePanel extends ParentPanel {
     }
 
     public void initiateMoves() {
+        String description1 = "";
+        String description2 = "";
+        String description3 = "";
+        Legends currentPlayer1 = player1.get(0);
+        Legends currentPlayer2 = player2.get(0);
+
         if (Stats.checkSpeed(currentPlayer1, currentPlayer2)) {
-            playerMoves(0);
-            playerMoves(1);
+            description1 = playerMoves(0);
+
+            if (player2.get(0) == currentPlayer2) {
+                description2 = playerMoves(1);
+            }
         } else {
-            playerMoves(1);
-            playerMoves(0);
+            description1 = playerMoves(1);
+
+            if (player1.get(0) == currentPlayer1) {
+                description2 = playerMoves(0);
+            }
         }
+
+        if (!hasAlive(1)) {
+            description3 = "Player 2 Wins!";
+        }
+
+        if (!hasAlive(2)) {
+            description3 = "Player 1 Wins!";
+        }
+
+        textArea.setText("<html>" + description1 + "<br>" + description2 + "<br>" + description3 + "</html>");
 
         moveQueue.clear();
 
         repaint();
     }
 
-    public void playerMoves(int index) {
+    public String playerMoves(int index) {
         ArrayList<Legends> player = new ArrayList<Legends>();
         ArrayList<Legends> opponent = new ArrayList<Legends>();
         HashMap<Legends, JProgressBar> opponentHealthMap = new HashMap<Legends, JProgressBar>();
+        HashMap<Legends, JProgressBar> playerHealthMap = new HashMap<Legends, JProgressBar>();
+        String description = "";
 
         if (index == 0) {
             player = player1;
             opponent = player2;
+            playerHealthMap = player1HealthMap;
             opponentHealthMap = player2HealthMap;
         } else {
             player = player2;
             opponent = player1;
+            playerHealthMap = player2HealthMap;
             opponentHealthMap = player1HealthMap;
         }
 
@@ -243,20 +271,15 @@ public class GamePanel extends ParentPanel {
 
         if (playerMove.getMoveType() == 1) {
 
-            if (playerMove.getMoveSelected() == 1 && Legends.accuracyCheck(player.get(0).getMoveset().get(0).getAccuracy())) {
-                
-                opponent.get(0).getStats().setHP(opponent.get(0).getStats().getHP() - Legends.calcDamage(0, player.get(0), opponent.get(0)));
+            description = "Player " + (index + 1) + " used "
+                    + player.get(0).getMoveset().get(playerMove.getMoveSelected() - 1).getMoveName() + "! ";
 
-            } else if (playerMove.getMoveSelected() == 2 && Legends.accuracyCheck(player.get(0).getMoveset().get(1).getAccuracy())) {
-
-                opponent.get(0).getStats().setHP(opponent.get(0).getStats().getHP() - Legends.calcDamage(1, player.get(0), opponent.get(0)));
-
-            } else if (playerMove.getMoveSelected() == 3 && Legends.accuracyCheck(player.get(0).getMoveset().get(2).getAccuracy())) {
-
-                opponent.get(0).getStats().setHP(opponent.get(0).getStats().getHP() - Legends.calcDamage(2, player.get(0), opponent.get(0)));
-
+            if (Legends.accuracyCheck(player.get(0).getMoveset().get(playerMove.getMoveSelected() - 1).getAccuracy())) {
+                int damage = Legends.calcDamage(playerMove.getMoveSelected() - 1, player.get(0), opponent.get(0));
+                opponent.get(0).getStats().setHP(opponent.get(0).getStats().getHP() - damage);
+                description = description + "The move hit! It did " + damage + " damage! ";
             } else {
-                System.out.println("miss");
+                description = description + " The move missed! ";
             }
 
             opponentHealthMap.get(opponent.get(0)).setValue(opponent.get(0).getStats().getHP());
@@ -264,22 +287,110 @@ public class GamePanel extends ParentPanel {
         } else if (playerMove.getMoveType() == 2) {
 
             if (countNumBuffs[index] < 5) {
+
+                description = "Player " + (index + 1) + " buffed " + player.get(0).getName();
+
                 if (playerMove.getStatBuffed() == 1) {
                     Move.heal(player.get(0));
+
+                    if (player.get(0).getStats().getHP() > playerHealthMap.get(player.get(0)).getMaximum()) {
+                        player.get(0).getStats().setHP(playerHealthMap.get(player.get(0)).getMaximum());
+                    }
+
+                    playerHealthMap.get(player.get(0)).setValue(player.get(0).getStats().getHP());
+
+                    description = description + "'s HP! It is now " + player.get(0).getStats().getHP() + " HP! ";
+
                 } else if (playerMove.getStatBuffed() == 2) {
                     Move.buffDefense(player.get(0));
+
+                    description = description + "'s Defense! It is now " + player.get(0).getStats().getDefense()
+                            + " Defense! ";
+
                 } else if (playerMove.getStatBuffed() == 3) {
                     Move.buffAttack(player.get(0));
+
+                    description = description + "'s Attack! It is now " + player.get(0).getStats().getAttack()
+                            + " Attack! ";
                 } else {
                     Move.buffSpeed(player.get(0));
+
+                    description = description + "'s Speed! It is now " + player.get(0).getStats().getSpeed()
+                            + " Speed! ";
                 }
                 countNumBuffs[index]++;
+
+                description = description + " Number of Buffs remaining: " + (5 - countNumBuffs[index]);
             }
 
         } else {
             playerImage[index] = FileFunctions.resizeImage(player.get(0).getImageFile(), 200, 250);
+
+            for (int a = 0; a < player.size(); a++) {
+                playerHealthMap.get(player.get(a)).setVisible(false);
+            }
+
+            playerHealthMap.get(player.get(0)).setVisible(true);
+
+            description = "Player " + (index + 1) + " swapped to " + player.get(0).getName() + "! ";
         }
 
+        if (!opponent.get(0).isAlive()) {
+            description = description + "<br>" + opponent.get(0).getName() + " has fainted! Swapping to ";
+
+            for (int a = 0; a < opponent.size(); a++) {
+                if (opponent.get(a).isAlive()) {
+                    Legends temp = opponent.remove(a);
+                    Legends current = opponent.remove(0);
+
+                    opponent.add(0, temp);
+                    opponent.add(current);
+
+                    break;
+                }
+            }
+
+            if (index == 0) {
+                playerImage[1] = FileFunctions.resizeImage(opponent.get(0).getImageFile(), 200, 250);
+            } else {
+                playerImage[0] = FileFunctions.resizeImage(opponent.get(0).getImageFile(), 200, 250);
+            }
+
+            for (int a = 0; a < player.size(); a++) {
+                opponentHealthMap.get(opponent.get(a)).setVisible(false);
+            }
+
+            opponentHealthMap.get(opponent.get(0)).setVisible(true);
+
+            description = description + opponent.get(0).getName() + "! ";
+
+        }
+
+        return description;
+    }
+
+    public boolean hasAlive(int index) {
+        ArrayList<Legends> player = new ArrayList<Legends>();
+
+        if (index == 1) {
+            player = player1;
+        } else {
+            player = player2;
+        }
+
+        int count = 0;
+
+        for (int a = 0; a < player1.size(); a++) {
+            if (player.get(0).getStats().getHP() <= 0) {
+                count++;
+            }
+        }
+
+        if (count == 3) {
+            return false;
+        }
+
+        return true;
     }
 
     public JButton getAttackButton() {
@@ -386,6 +497,10 @@ public class GamePanel extends ParentPanel {
         return move3Button;
     }
 
+    public int[] getCountNumBuffs() {
+        return countNumBuffs;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -393,7 +508,7 @@ public class GamePanel extends ParentPanel {
         g.drawImage(battleBackground, 0, 0, this);
 
         g.setColor(Color.WHITE);
-        g.fillRect(150,75, 220,270);
+        g.fillRect(150, 75, 220, 270);
         g.fillRect(495, 75, 220, 270);
 
         g.drawImage(playerImage[0], 160, 85, this);

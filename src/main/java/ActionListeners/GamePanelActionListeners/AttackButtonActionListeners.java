@@ -32,9 +32,9 @@ public class AttackButtonActionListeners implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (currentPanel.getTurn()[0] > 0) {
-            current = currentPanel.getCurrentCharacter(1);
+            current = currentPanel.getPlayer1().get(0);
         } else {
-            current = currentPanel.getCurrentCharacter(2);
+            current = currentPanel.getPlayer2().get(0);
         }
 
         move1Button.setVisible(true);

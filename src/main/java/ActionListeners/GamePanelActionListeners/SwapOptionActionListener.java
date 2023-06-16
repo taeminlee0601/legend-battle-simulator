@@ -40,7 +40,7 @@ public class SwapOptionActionListener implements ActionListener {
         Legends current = player.get(0);
         
         if (!swapping.isAlive()) {
-            currentPanel.getTextLabel().setText("Cannot swap to that legend!");
+            currentPanel.getTextLabel().setText("Cannot swap to that legend! Please choose again, Player " + playerNum + "!");
             changeButtons();
             return;
         }

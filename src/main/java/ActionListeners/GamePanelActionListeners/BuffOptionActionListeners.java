@@ -17,6 +17,17 @@ public class BuffOptionActionListeners implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if (currentPanel.getTurn()[0] > 0 && currentPanel.getCountNumBuffs()[0] >= 5) {
+            currentPanel.getTextLabel().setText("Player 1 has no more buffs left! Please choose again, Player 1!");
+            changeButtons();
+            return;
+        } else if (currentPanel.getTurn()[0] < 0 && currentPanel.getCountNumBuffs()[1] >= 5) {
+            currentPanel.getTextLabel().setText("Player 2 has no more buffs left! Please choose again, Player 2!");
+            changeButtons();
+            return;
+        }
+
         currentPanel.getMoveQueue().add(new QueuedMove(2, index));
         
         changeButtons();
