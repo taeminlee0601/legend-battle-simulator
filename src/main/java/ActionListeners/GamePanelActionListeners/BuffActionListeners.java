@@ -14,7 +14,6 @@ public class BuffActionListeners implements ActionListener {
     private JButton buffButton;
     private JButton swapButton;
 
-
     public BuffActionListeners(GamePanel currentPanel) {
         this.buffHP = currentPanel.getBuffHPButton();
         this.buffDef = currentPanel.getBuffDefButton();

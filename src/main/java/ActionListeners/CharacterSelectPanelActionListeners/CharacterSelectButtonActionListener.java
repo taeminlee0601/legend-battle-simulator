@@ -63,12 +63,23 @@ public class CharacterSelectButtonActionListener implements ActionListener {
         this.legendsType = legendType;
     }
 
+    /**
+     * This method will check if the button is pressed and then add the legend pressed to the arraylist of the player that 
+     * is choosing.
+     * Precondition: Button must be clicked
+     * Postconditions: Adds the legend into the arraylist or restarts process
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
+        // Checks is the length of arraylist is less than 3
         if (player1.size() < 3) {
+            // Checks if the legend is contained in the arraylist
+            // If not, add the legend to the arraylist, add the legend face file to the array, and reload the panel
+            // If yes, show a warning that says that you cannot select the same legend 
             if (!player1.contains(currentDisplayed[index])) {
+
                 player1.add(currentDisplayed[index]);
-                
+
                 Image faceImage = FileFunctions.resizeImage(currentDisplayed[index].getFaceImageFile(), 50, 50);
 
                 player1Image.add(faceImage);
@@ -79,17 +90,21 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 JOptionPane.showMessageDialog(frame, "You cannot select the same legend twice!");
             }
 
+            // End method if the length of the arraylist is less than 3
             if (player1.size() < 3) {
                 return;
             }
         }
 
+        // If the arraylist contains 3 elements and if the popup has not opened
         if (player1.size() == 3 && !hasPopupOpened[0]) {
+            // Show a popup that confirms the person's choice
             response = JOptionPane.showConfirmDialog(frame, "Player 1 has selected " + 
                 player1.get(0).getName() + ", " + player1.get(1).getName() + ", " + player1.get(2).getName() + ".",
                 "Confirm", JOptionPane.YES_NO_OPTION);
             hasPopupOpened[0] = true;
 
+            // If they choose no, reset the choosing process by creating a new panel
             if (response == JOptionPane.NO_OPTION) {
                 CharacterSelectPanel selectPanel = new CharacterSelectPanel();
 
@@ -114,13 +129,20 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 // Adds the character select panel to the frame
                 frame.add(selectPanel);
 
+                // Show the instructions for player 1 on the screen
                 JOptionPane.showMessageDialog(frame, "Player 1: Choose 3 characters by clicking on the Character's image");
+            // If they select 1, show instruction for player 2
             } else {
                 JOptionPane.showMessageDialog(frame, "Player 2: Choose 3 characters by clicking on the character's image");
             }
 
+            // End the method if this line is reached
             return;
         }
+
+        /*
+         * The following code has the same process as the code above but for player 2 (refer to above)
+         */
 
         if (player2.size() < 3) {
             if (!player1.contains(currentDisplayed[index]) && !player2.contains(currentDisplayed[index])) {
@@ -143,6 +165,7 @@ public class CharacterSelectButtonActionListener implements ActionListener {
             hasPopupOpened[0] = true;
 
             if (response == JOptionPane.NO_OPTION) {
+                // Create an character select panel object that keeps the choices of player 1
                 CharacterSelectPanel selectPanel = new CharacterSelectPanel(player1, hasPopupOpened, legendsMap, legendsType, player1Image);
 
                 // Initializes the settings of the next panel
@@ -167,21 +190,29 @@ public class CharacterSelectButtonActionListener implements ActionListener {
                 frame.add(selectPanel);
 
                 JOptionPane.showMessageDialog(frame, "Player 2: Choose 3 characters by clicking on the Character's image");
+            // Go to the next panel (game panel)
             } else {
+                // Create a new GamePanel takes in the player1 choices and player2 choices
                 GamePanel nextPanel = new GamePanel(player1, player2);
+                // Add the frame to the next panel
                 nextPanel.setFrame(frame);
                 
+                // Add the font file to the next panel
                 try {
                     nextPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
                 } catch (URISyntaxException f) {
                     f.printStackTrace();
                 }
 
+                // Add the elements in the next panel
                 nextPanel.createPanel();
+                // Set the frame to be not visible
                 currentPanel.setVisible(false);
+                // Add the next panel to the frame
                 frame.add(nextPanel);
             }
 
+            // If this is reached, end the method
             return;
         }
 

@@ -1,15 +1,26 @@
 package ActionListeners.GamePanelActionListeners;
 
+// Import the required packages
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import GameData.QueuedMove;
 import GamePanels.GamePanel;
 
+/*
+ * This class is the action listener of the buff buttons
+ */
 public class BuffOptionActionListeners implements ActionListener {
+    // Create the required action listeners
     private int index;
     private GamePanel currentPanel;
 
+    /**
+     * This is the constructor of the buff option action listeners
+     * Preconditions: Takes in the index (buff option) and the currentPanel (GamePanel)
+     * Postconditions: Takes the parameters and sets the to the corresponding instance variables
+     * @param index - int
+     * @param currentPanel - GamePanel
+     */
     public BuffOptionActionListeners(int index, GamePanel currentPanel) {
         this.currentPanel = currentPanel;
         this.index = index;

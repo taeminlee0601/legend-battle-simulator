@@ -3,19 +3,15 @@ package GamePanels;
 import java.awt.*;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
-
 import javax.swing.*;
-
 import ActionListeners.GamePanelActionListeners.AttackButtonActionListeners;
 import ActionListeners.GamePanelActionListeners.AttackOptionActionListeners;
 import ActionListeners.GamePanelActionListeners.BuffActionListeners;
 import ActionListeners.GamePanelActionListeners.BuffOptionActionListeners;
 import ActionListeners.GamePanelActionListeners.SwapButtonActionListeners;
 import ActionListeners.GamePanelActionListeners.SwapOptionActionListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import GameData.Legends;
 import GameData.Move;
 import GameData.QueuedMove;
@@ -56,6 +52,8 @@ public class GamePanel extends ParentPanel {
 
     private Legends currentPlayer1;
     private Legends currentPlayer2;
+
+    private JLabel[] displayName = new JLabel[2];
 
     private HashMap<Legends, JProgressBar> player1HealthMap = new HashMap<Legends, JProgressBar>();
     private HashMap<Legends, JProgressBar> player2HealthMap = new HashMap<Legends, JProgressBar>();
@@ -158,27 +156,38 @@ public class GamePanel extends ParentPanel {
         move3Button.setVisible(false);
 
         // Initialize the text area
-        textArea.setBounds(0, 400, 500, 115);
+        textArea.setBounds(10, 400, 500, 115);
         textArea.setText("Player 1 chooses first then Player 2!");
         textArea.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Initialize the player choosing text area
-        playerChoosing.setBounds(0, 515, 500, 50);
+        playerChoosing.setBounds(0, 515, 475, 50);
         playerChoosing.setText("Player 1 is Choosing...");
         playerChoosing.setHorizontalAlignment(SwingConstants.CENTER);
 
+        displayName[0] = new JLabel();
+        displayName[0].setFont(customFont.deriveFont(20f));
+        displayName[0].setForeground(Color.WHITE);
+        displayName[0].setBounds(150, 25, 220, 50);
+        displayName[0].setText(player1.get(0).getName());
+        displayName[0].setHorizontalAlignment(SwingConstants.CENTER);
+
+        displayName[1] = new JLabel();
+        displayName[1].setFont(customFont.deriveFont(20f));
+        displayName[1].setForeground(Color.WHITE);
+        displayName[1].setBounds(495, 25, 220, 50);
+        displayName[1].setText(player2.get(0).getName());
+        displayName[1].setHorizontalAlignment(SwingConstants.CENTER);
+
         // Initialize the attack button
-        attackButton.setBackground(Color.GREEN);
         attackButton.setBounds(500, 400, 400, 55);
         attackButton.setText("Attack Opponent");
 
         // Initialize the buff button
-        buffButton.setBackground(Color.RED);
         buffButton.setBounds(500, 455, 400, 55);
         buffButton.setText("Buff Yourself");
 
         // Initialize the swap button
-        swapButton.setBackground(Color.MAGENTA);
         swapButton.setBounds(500, 510, 400, 55);
         swapButton.setText("Swap Legends");
 
@@ -212,6 +221,8 @@ public class GamePanel extends ParentPanel {
         add(move2Button);
         add(move3Button);
         add(playerChoosing);
+        add(displayName[0]);
+        add(displayName[1]);
 
         for (int a = 0; a < 3; a++) {
             add(player1HealthMap.get(player1.get(a)));
@@ -364,6 +375,8 @@ public class GamePanel extends ParentPanel {
             }
 
             playerHealthMap.get(player.get(0)).setVisible(true);
+            
+            displayName[index].setText(player.get(0).getName());
 
             description = "Player " + (index + 1) + " swapped to " + player.get(0).getName() + "! ";
         }
@@ -536,6 +549,10 @@ public class GamePanel extends ParentPanel {
 
     public JLabel getPlayerChoosingLabel() {
         return playerChoosing;
+    }
+
+    public JLabel[] getDisplayNameLabels() {
+        return displayName;
     }
 
     @Override

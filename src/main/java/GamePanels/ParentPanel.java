@@ -88,7 +88,7 @@ public class ParentPanel extends JPanel {
             e.printStackTrace();
         }
     }
-
+    
     /**
      * Sets the background file
      * @param backgroundFile - Type: File (File of background image)

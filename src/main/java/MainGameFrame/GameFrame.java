@@ -4,8 +4,8 @@ package MainGameFrame;
 // javax.swing and java.awt=> used for the GUI
 import javax.swing.*;
 import GamePanels.StartPanel;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
+
+import java.io.File;
 
 /*
  * This class creates the main window of the game
@@ -25,8 +25,8 @@ public class GameFrame extends JFrame {
         startPanel.setBackgroundImage(new ImageIcon(getClass().getResource("/assets/StartMenuBackground.jpg")));
         // Setting the path to the font file
         try {
-            startPanel.setFontFile(Paths.get(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()).toFile());
-        } catch (URISyntaxException e) {
+            startPanel.setFontFile(new File(getClass().getResource("/assets/BreatheFireIii-PKLOB.ttf").toURI()));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         // Adding the current frame to start panel
