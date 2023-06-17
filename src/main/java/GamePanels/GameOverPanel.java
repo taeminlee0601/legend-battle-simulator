@@ -1,27 +1,43 @@
 package GamePanels;
 
+// Import required packages
 import javax.swing.*;
-
 import ActionListeners.StartPanelActionListeners.ExitButtonActionListener;
 import ActionListeners.StartPanelActionListeners.PlayButtonActionListener;
-
 import java.awt.*;
 
+/*
+ * This class shows the winner and asks if they want to play again
+ * Inherits ParentPanel
+ */
 public class GameOverPanel extends ParentPanel {
+    // Create necessary instance variables
     private int winner;
     private JLabel winnerMessage = new JLabel();
     private JButton playButton = new JButton();
     private JButton exitButton = new JButton();
 
+    /**
+     * This is the constructor for the GameOverPanel
+     * Preconditions: Takes in the winner (1,2 - player number of winner)
+     * Postconditions: Sets the instance variables with the parameter given
+     * @param winner - int
+     */
     public GameOverPanel(int winner) {
         this.winner = winner;
     }
 
+    /**
+     * Adds the elements of the CharacterSelectPanel
+     * Postcondition: Creates and adds the elements to the panel
+     */
     public void createPanel() {
+        // Initialize the settings of the panel
         setVisible(true);
         setSize(900, 600);
         setLayout(null);
 
+        // Create the font of the panel
         createFont();
 
         // Set the font of the buttons as the custom font
@@ -59,8 +75,10 @@ public class GameOverPanel extends ParentPanel {
         winnerMessage.setFont(customFont.deriveFont(70f));
         // Set the location and size of the button
         winnerMessage.setBounds(getWidth()/2 - 350, getHeight()/2 - 100, 700, 100);
+        // Align the text to the middle of the screen
         winnerMessage.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Add the buttons and labels
         add(playButton);
         add(exitButton);
         add(winnerMessage);
@@ -77,5 +95,4 @@ public class GameOverPanel extends ParentPanel {
         // Set the background image of the panel
         g.drawImage(background, 0, 0, this);
     }
-
 }

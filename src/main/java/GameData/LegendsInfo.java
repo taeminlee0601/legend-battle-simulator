@@ -221,6 +221,11 @@ public class LegendsInfo {
         characterList.add(hades);
     }
 
+    /**
+     * Returns the arraylist of legends
+     * Postconditions: returns the arraylist of legends
+     * @return characterList - ArrayList<Legends>
+     */
     public ArrayList<Legends> getLegendsList() {
         return characterList;
     }

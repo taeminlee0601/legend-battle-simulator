@@ -2,11 +2,9 @@ package GamePanels;
 
 // import required packages
 import javax.swing.*;
-
 import ActionListeners.CharacterSelectPanelActionListeners.CharacterSelectButtonActionListener;
 import ActionListeners.CharacterSelectPanelActionListeners.SelectLeftButtonActionListener;
 import ActionListeners.CharacterSelectPanelActionListeners.SelectRightButtonActionListener;
-
 import java.awt.*;
 import java.io.File;
 import java.net.URISyntaxException;
@@ -211,24 +209,38 @@ public class CharacterSelectPanel extends ParentPanel {
         }
     }
 
+    /**
+     * This method will set the character hash map contain the legends
+     * Preconditions: CharacterSelectPanel is created
+     * Postcondtions: Sets the legendsMaps hashMap (keys = type of character, values = arraylist of legends) and 
+     * the legendType arraylist
+     * @throws URISyntaxException
+     */
     public void setCharacterHashMap() throws URISyntaxException {
+        // Adds the type of legends to the legendType arraylist
         legendType.add("Outer Gods");
         legendType.add("Meme Gods");
         legendType.add("Norse Gods");
         legendType.add("Egyptian Gods");
         legendType.add("Olympus Gods");
 
+        // Sets the legendType elements as the keys of the legendMap hashMap
         for (int a = 0; a < legendType.size(); a++) {
             legendsMap.put(legendType.get(a), new ArrayList<Legends>());
         }
 
+        // Creates a new LegendsInfo object
         LegendsInfo legendsInfo = new LegendsInfo();
 
+        // Gets the legendlist
         ArrayList<Legends> legendList = legendsInfo.getLegendsList();
 
+        // Set count to zero
         int count = 0;
 
+        // Add the legends to the legendsMap
         for (int a = 0; a < legendList.size(); a++) {
+            // Goes to the next type ever 3 legends added to the arraylist
             if (a % 3 == 0 && a > 0) {
                 count++;
             }
@@ -236,7 +248,12 @@ public class CharacterSelectPanel extends ParentPanel {
             legendsMap.get(legendType.get(count)).add(legendList.get(a));
         }
     }
-
+    
+    /**
+     * This method will set the legendType so that the Outer Gods type is in the first element
+     * Preconditions: Player 1 or 2 click "No" in the confirm box popup
+     * Postconditions: Sets the legendType arraylist first element to be Outer Gods 
+     */
     public void setToStartTypeList() {
         while (!legendType.get(0).equals("Outer Gods")) {
             String temp = legendType.remove(0);
@@ -244,25 +261,41 @@ public class CharacterSelectPanel extends ParentPanel {
         }
     }
 
+    /**
+     * This method modifies the description string so that the string has "<html>" in front and "</html>" at the end
+     * Preconditions: Takes in the description string
+     * Postconditions: Returns a string with "<html>" in front and "</html>" at the end (Needed for wrapping text in JLabel)
+     * @param description - String
+     * @return description - String
+     */
     public String setDescription(String description) {
         return "<html>" + description + "</html>";
     }
 
+    /**
+     * This method paints images and shapes on the panel
+     * Preconditions: CharacterSelectPanel Object is created
+     * Postconditions: Paints the images and shapes at the location stated
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // Paints the background
         g.drawImage(background, 0, 0, this);
 
+        // Draws the rectangles in top corners (Faces are then painted there)
         for (int a = 0; a < 3; a++) {
             g.drawRect(75+(a*55), 50, 50, 50);
             g.drawRect(647+(a*55),50,50,50);
         }
 
+        // Paint the player1 faces
         for (int a = 0; a < player1Image.size(); a++) {
             g.drawImage(player1Image.get(a), 75+(a*55), 50, this);
         }
 
+        // Paint the player2 faces
         for (int a = 0; a < player2Image.size(); a++) {
             g.drawImage(player2Image.get(a), 645+(a*55), 50, this);
         }

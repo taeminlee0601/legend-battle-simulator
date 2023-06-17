@@ -1,5 +1,6 @@
 package MainGameFrame;
 
+// import required packages
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
