@@ -26,9 +26,15 @@ public class BuffOptionActionListeners implements ActionListener {
         this.index = index;
     }
 
+    /**
+     * This method will add a QueuedMove to the moveQueue arraylist
+     * Preconditions: Button is clicked
+     * Postconditions: Add a QueuedMove to the moveQueue arraylist
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // If the turn is over the number of allowed buffs
+        // State that the player doesn't have any buffs left
         if (currentPanel.getTurn()[0] > 0 && currentPanel.getCountNumBuffs()[0] >= 5) {
             currentPanel.getTextLabel().setText("Player 1 has no more buffs left! Please choose again, Player 1!");
             changeButtons();
@@ -39,12 +45,15 @@ public class BuffOptionActionListeners implements ActionListener {
             return;
         }
 
+        // Add a new QueuedMove to the moveQueue arraylist
         currentPanel.getMoveQueue().add(new QueuedMove(2, index));
         
         changeButtons();
 
         currentPanel.changeTurn();
 
+        // If the turn is back to player 1, initiate the move
+        // If not, state that player 2 is choosing
         if (currentPanel.getTurn()[0] > 0) {
             currentPanel.initiateMoves();
         } else {
@@ -52,6 +61,9 @@ public class BuffOptionActionListeners implements ActionListener {
         }
     }
 
+    /**
+     * This method changes the visibilitity of the buttons
+     */
     public void changeButtons() {
         currentPanel.getAttackButton().setVisible(true);
         currentPanel.getSwapButton().setVisible(true);

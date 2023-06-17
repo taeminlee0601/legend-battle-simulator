@@ -48,6 +48,9 @@ public class AttackOptionActionListeners implements ActionListener {
         }
     }
     
+    /**
+     * This method changes the visibilitity of the buttons
+     */
     public void changeButtons() {
         // Set the basic buttons (attack, buff, swap) to visible
         currentPanel.getAttackButton().setVisible(true);
